@@ -5,8 +5,10 @@
     <br/>
     {{ form_row(form.email) }}
     <br/>
-    {{ form_row(form.plainPassword) }}
+    {{ form_row(form.plainPassword.first) }}
+    {{ form_row(form.plainPassword.second) }}
     <br/>
+    <button type="submit">Register !</button>
     {{ form_end(form) }}
 
 {% endblock %}

@@ -5,17 +5,19 @@ security:
         my_db_provider:
             entity:
                 class: App\Entity\User
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            #pattern: ^/                 # regex of the path the firewall applies to - here everything
-            #http_basic:                 # use http basic for login
-            #provider: my_db_provider    # it specifies what provider to use.
-            #anonymous: ~
+            pattern: ^/                 # regex of the path the firewall applies to - here everything
+            http_basic: ~               # use http basic for login
+            provider: my_db_provider    # it specifies what provider to use.
+            anonymous: ~
+
             # avant modif : juste la ligne suivante était activée:
-            anonymous: true
+            # anonymous: true
 
             # activate different ways to authenticate
 
@@ -28,8 +30,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        #- { path: ^/public, roles: IS_AUTHENTICATED_ANONYMOUSLY}    #the role for public access
-        #- { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }    #each routes needs the user to have a ROLE_USER
+        - { path: ^/public, roles: IS_AUTHENTICATED_ANONYMOUSLY}    #the role for public access
+        - { path: ^/product, roles: ROLE_USER }    #each routes needs the user to have a ROLE_USER
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }    #each routes needs the user to have a ROLE_USER
+
 
         #- { path: ^/, roles: ROLE_USER }    #each routes needs the user to have a ROLE_USER
 

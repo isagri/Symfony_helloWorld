@@ -35,7 +35,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json_array", nullable=true)
      */
-    private $roles;
+    private $roles = ["ROLE_USER"];
 
     private $plainPassword;
 
@@ -129,4 +129,31 @@ class User implements UserInterface
             array_splice($this->roles, $index, 1);
         }
     }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->email,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->email,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
 }
