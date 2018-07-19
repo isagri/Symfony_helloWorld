@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_row(form.username) }}
+    <br/>
+    {{ form_row(form.email) }}
+    <br/>
+    {{ form_row(form.plainPassword) }}
+    <br/>
+    {{ form_end(form) }}
+
+{% endblock %}
